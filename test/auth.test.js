@@ -1,10 +1,14 @@
-const request = require('supertest');
-const app = require('../server');
-const User = require('../models/User');
+import request from "supertest";
+import { app } from "../server.js";
+import User from "../models/User.js";
+
+import mongoose from "mongoose";
 
 describe('Authentication Endpoints', () => {
   beforeEach(async () => {
-    await User.deleteMany({});
+    if (mongoose.connection.readyState === 1) {
+      await User.deleteMany({});
+    }
   });
 
   describe('POST /api/auth/register', () => {

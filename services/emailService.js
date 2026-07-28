@@ -20,14 +20,16 @@ try {
     }
   });
 
-  // Verify transporter configuration
-  transporter.verify(function (error, success) {
-    if (error) {
-      console.error('❌ Email transporter error:', error.message);
-    } else {
-      console.log('✅ Email server is ready to send messages');
-    }
-  });
+  // Verify transporter configuration if credentials provided
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.error('❌ Email transporter error:', error.message);
+      } else {
+        console.log('✅ Email server is ready to send messages');
+      }
+    });
+  }
 } catch (error) {
   console.error('❌ Failed to create email transporter:', error.message);
 }

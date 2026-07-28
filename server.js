@@ -126,6 +126,7 @@ app.use("/api/analytics", analyticsRoutes);
 app.use("/api/static", staticRoutes);
 app.use("/api/admin/matchmaking", matchmakingRoutes);
 app.use("/api/uploads", uploadRoutes);
+app.use("/api/upload", uploadRoutes);
 app.use("/api/stories", storiesRoutes);
 
 // Health check
@@ -199,4 +200,5 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-export { io };
+export { app, server, io };
+export default app;
