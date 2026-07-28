@@ -1,0 +1,33 @@
+Demo Users Seeded:
+
+1. Alice Johnson (username: alicejohnson210, email: alicejohnson210@example.com, id: 68b2b7f614f447ec5299d387)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=5
+
+2. Bob Smith (username: bobsmith430, email: bobsmith430@example.com, id: 68b2b7f614f447ec5299d38a)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=5
+
+3. Carol Davis (username: caroldavis645, email: caroldavis645@example.com, id: 68b2b7f714f447ec5299d38d)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=6
+
+4. Dave Wilson (username: davewilson925, email: davewilson925@example.com, id: 68b2b7f714f447ec5299d390)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=3
+
+5. Eva Brown (username: evabrown380, email: evabrown380@example.com, id: 68b2b7f714f447ec5299d393)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=5
+
+6. Frank Miller (username: frankmiller743, email: frankmiller743@example.com, id: 68b2b7f714f447ec5299d396)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=6
+
+7. Grace Lee (username: gracelee672, email: gracelee672@example.com, id: 68b2b7f814f447ec5299d399)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=4
+
+8. Henry Clark (username: henryclark856, email: henryclark856@example.com, id: 68b2b7f814f447ec5299d39c)
+   password: Arcade@1234
+   avatar: https://i.pravatar.cc/300?img=1
