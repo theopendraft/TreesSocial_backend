@@ -3,7 +3,7 @@ services:
     name: trees-backend
     env: node
     region: oregon
-    plan: starter
+    plan: free
     buildCommand: npm install
     startCommand: npm start
     envVars:
