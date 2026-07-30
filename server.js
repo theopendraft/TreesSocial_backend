@@ -193,29 +193,20 @@ io.on("connection", (socket) => {
 app.use(errorHandler);
 
 // Database connection
+mongoose.set("bufferCommands", false);
+
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://sidpublic8989_db_user:N41q9IDUnVkTUh5K@cluster0.vl3o5l3.mongodb.net/trees-social?retryWrites=true&w=majority";
+
 mongoose
-  .connect(
-    process.env.MONGODB_URI ||
-      "mongodb://localhost:27017/social-media-platform",
-    {
-      serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-    }
-  )
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-    // Try to connect to local MongoDB as fallback
-    console.log("Attempting to connect to local MongoDB...");
-    return mongoose.connect("mongodb://localhost:27017/social-media-platform", {
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-    });
+  .connect(MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
   })
-  .then(() => console.log("Connected to local MongoDB"))
+  .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => {
-    console.error("Local MongoDB connection also failed:", err);
-    console.log("Starting server without database connection...");
+    console.error("MongoDB Atlas connection error:", err.message);
   });
 
 const PORT = process.env.PORT || 3000;
