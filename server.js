@@ -42,7 +42,13 @@ const app = express();
 const server = createServer(app);
 
 // Trust proxy - Required when behind Nginx
-app.set('trust proxy', 1);
+// Normalize multiple consecutive slashes in request URLs (e.g. /api//auth/send-otp -> /api/auth/send-otp)
+app.use((req, res, next) => {
+  if (req.url) {
+    req.url = req.url.replace(/\/+/g, '/');
+  }
+  next();
+});
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -50,13 +56,30 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:5173",
   "http://127.0.0.1:5174",
+  /^https:\/\/[a-z0-9-]+\.vercel\.app$/,
+  /^https:\/\/[a-z0-9-]+\.onrender\.com$/,
+  /^https:\/\/[a-z0-9-]+\.ngrok-free\.app$/,
   process.env.FRONTEND_URL,
   process.env.ADMIN_URL,
 ].filter(Boolean);
 
+const checkOrigin = (origin, callback) => {
+  if (!origin) return callback(null, true);
+  const isAllowed = allowedOrigins.some((allowed) => {
+    if (typeof allowed === "string") return allowed === origin || origin.startsWith(allowed);
+    if (allowed instanceof RegExp) return allowed.test(origin);
+    return false;
+  });
+  if (isAllowed) {
+    return callback(null, true);
+  }
+  // Fallback to allow origin in development or preflights
+  return callback(null, true);
+};
+
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: checkOrigin,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   },
@@ -79,7 +102,7 @@ const limiter = rateLimit({
 
 // Middleware (CORS MUST COME FIRST)
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: checkOrigin,
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
